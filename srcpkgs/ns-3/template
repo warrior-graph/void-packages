@@ -1,0 +1,45 @@
+# Template file for 'ns-3'
+pkgname=ns-3
+version=3.28
+revision=1
+#wrksrc=
+#build_wrksrc=
+#only_for_archs="i686 x86_64"
+build_style=waf
+configure_args="--build-profile=optmized --enable-examples --enable-tests"
+make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="ns-3 is a discrete-event network simulator for Internet systems"
+maintainer="warrior-graph <hmarques979@gmail.com>"
+license="GPL-2.0"
+homepage="https://www.nsnam.org"
+distfiles="${homepage}/release/ns-allinone-${version}.${revision}.tar.bz2"
+checksum=1a777216ef88cfa3ede700582781c4b7ae69b26649406b8749d5588d5d43ea8e
+
+do_extract() {
+	mkdir -p ${DESTDIR}
+
+}
+
+do_configure() {
+        : ${configure_script:=waf}
+        PYTHON=/usr/bin/python2 python2 ${configure_script} configure --prefix=/usr ${configure_args}
+}
+
+do_build() {
+        : ${configure_script:=waf}
+
+        PYTHON=/usr/bin/python2 python2 ${configure_script} build ${make_build_args}
+}
+
+do_install() {
+        : ${configure_script:=waf}
+
+        PYTHON=/usr/bin/python2 python2 ${configure_script} install --destdir=${DESTDIR} ${make_install_args}
+}
+
